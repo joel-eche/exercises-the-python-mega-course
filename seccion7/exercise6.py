@@ -9,7 +9,7 @@ level. E.g. "2016-06-01-13-57-39-170965.txt".
 """
 import datetime
 
-with open(str(datetime.datetime.now())+'.txt', 'w+') as fileOut:
+with open(str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S-%f"))+'.txt', 'w+') as fileOut:
     #file1 in Sample-Files
     for i in range (1,4):
         file=open('Sample-Files/file' + str(i) + '.txt' , 'r')
