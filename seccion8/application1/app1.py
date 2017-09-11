@@ -5,12 +5,13 @@ data=json.load(open('data.json'))
 
 def traslate(w):
     w=w.lower()
+    closeMatches = get_close_matches(w,data.keys())
     if w in data:
         return data[w]
-    elif len(get_close_matches(w, data.keys())) > 0:
-        yn= input('Did you mean %s instead? Enter Y if yes, or N if no.' % get_close_matches(w, data.keys())[0])
+    elif len(closeMatches) > 0:
+        yn= input('Did you mean %s instead? Enter Y if yes, or N if no.' % closeMatches[0])
         if yn.lower()=='y':
-            return data[get_close_matches(w, data.keys())[0]]
+            return data[closeMatches[0]]
         elif yn.lower()=='n':
             return 'The word doesn\'t exist. Please check it.'
         else:
@@ -18,6 +19,12 @@ def traslate(w):
     else:
         return 'The word doesn\'t exist. Please check it.'
 
-word=input('Enter word: ')
+word = input('Enter word: ')
 
-print(traslate(word))
+output = traslate(word)
+
+if type(output) == list:
+    for item in output:
+        print(item)
+else:
+    print(output)
